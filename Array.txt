@@ -1,0 +1,62 @@
+public class Student implements java.io.Serializable
+{
+public string name;
+public string regNumber;
+transient public intsemesterNo;
+	public void  displayInfo()
+	{
+		System.out.println("Name"+ name+ " Reg number" + regNumber +"semester Number"+ semesterNo );
+	}
+}
+
+1.	Create a driver class like the following to finally write the preserve the data of the above class.
+
+import java.io.*;
+public class SerializableExample
+{
+public static void main (String [] args )
+{
+	Student Student_1 =new Student ();
+Student_1.name="Ali ";
+Student_1. regNumber="bc103012";
+Student_1.semesterNo=5;
+	try
+{
+FileOutputStream fos=new FileOutputStream ("first_file.txt");
+ObjectOutputStream oos=new ObjectOutputStream(fos);
+oos.writeObject(Student_1); //writing object to the file named first_file
+oos.close();//closing steams.
+fos.close();
+}
+catch(Exception Ex1)
+{
+Ex1.printStackTrace();
+}
+}
+}
+
+2.	Last step is to read the data back from the medium on which it was preserved. Following class will show you how to deserialize the file.
+
+
+import java.io.*;
+public class SerializableExample
+{
+public static void main (String [] args )
+{
+	Student Student_1 =new Student ();
+	try
+{
+FileInputStream fis=new FileInputStream ("first_file.txt");
+ObjectInputStream ois=new ObjectInputStream(fis);
+Student_1 =(Student) ois.readObject();
+ois.close(); //closing steams.
+fis.close();
+}
+catch (Exception Ex1)
+{
+Ex1.printStackTrace();
+}
+	System.out.println("Deserialized student info ");
+	System.out.println("Name"+ Student_1 . name+ " Reg number" + Student_1 .regNumber;
+}
+}
